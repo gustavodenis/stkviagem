@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<widget xmlns   = "http://www.w3.org/ns/widgets"
+    xmlns:gap   = "http://phonegap.com/ns/1.0"
+    id          = "com.softtek.sapforum"
+    version     = "1.0.0" >
+
+  <name>Softtek Eventos 2014</name>
+
+  <description>
+    Aplicação Mobile da Softtek para o Evento SAP Forum
+  </description>
+
+  <author href="http://www.softtek.com" email="gustavo.denis@softtek.com">
+    Gustavo Denis
+  </author>
+
+  <preference name="phonegap-version" value="3.1.0" />
+  <preference name="orientation"                value="portrait" />
+  <!-- all: default means both landscape and portrait are enabled -->
+  <preference name="target-device"              value="universal" />
+  <!-- all: possible values handset, tablet, or universal -->
+  <preference name="fullscreen"                 value="true" />
+  <!-- all: hides the status bar at the top of the screen -->
+  <preference name="webviewbounce"              value="true" />
+  <!-- ios: control whether the screen 'bounces' when scrolled beyond the top -->
+  <preference name="prerendered-icon"           value="true" />
+  <!-- ios: if icon is prerendered, iOS will not apply it's gloss to the app's icon on the user's home screen -->
+  <preference name="stay-in-webview"            value="false" />
+  <!-- ios: external links should open in the default browser, 'true' would use the webview the app lives in -->
+  <preference name="ios-statusbarstyle"         value="black-opaque" />
+  <!-- ios: black-translucent will appear black because the PhoneGap webview doesn't go beneath the status bar -->
+  <preference name="detect-data-types"          value="true" />
+  <!-- ios: controls whether data types (such as phone no. and dates) are automatically turned into links by the system -->
+  <preference name="exit-on-suspend"            value="false" />
+  <!-- ios: if set to true, app will terminate when home button is pressed -->
+  <preference name="show-splash-screen-spinner" value="true" />
+  <!-- ios: if set to false, the spinner won't appear on the splash screen during app loading -->
+  <preference name="auto-hide-splash-screen"    value="true" />
+  <!-- ios: if set to false, the splash screen must be hidden using a JavaScript API -->
+  <preference name="disable-cursor"             value="false" />
+  <!-- blackberry: prevents a mouse-icon/cursor from being displayed on the app -->
+  <preference name="android-minSdkVersion"      value="7" />
+  <!-- android: MIN SDK version supported on the target device. MAX version is blank by default. -->
+  <preference name="android-installLocation"    value="auto" />
+  <!-- android: app install location. 'auto' will choose. 'internalOnly' is device memory. 'preferExternal' is SDCard. -->
+
+  <feature name="http://api.phonegap.com/1.0/network" />
+  <feature name="PushNotification">
+    <param name="ios-package" value="PushNotification" />
+  </feature>
+  
+  <plugin name="PushNotification" value="PushNotification" />
+  <gap:plugin name="com.phonegap.plugins.barcodescanner"/>
+  <gap:plugin name="com.pushwoosh.plugins.pushwoosh"/>
+  
+  <gap:platform name="ios" />
+  <gap:platform name="android" />
+  <gap:platform name="winphone" />
+
+  <icon src="images/icon.png" />
+  <icon src="App_Resources/Android/drawable-ldpi/icon.png"          gap:platform="android"  gap:density="ldpi" />
+  <icon src="App_Resources/Android/drawable-mdpi/icon.png"          gap:platform="android"  gap:density="mdpi" />
+  <icon src="App_Resources/Android/drawable-hdpi/icon.png"          gap:platform="android"  gap:density="hdpi" />
+  <icon src="App_Resources/Android/drawable-xhdpi/icon.png"         gap:platform="android"  gap:density="xhdpi" />
+  <icon src="App_Resources/iOS/icon-Small-50.png"                   gap:platform="ios"      width="50" height="50" />
+  <icon src="App_Resources/iOS/icon-Small-57.png"                   gap:platform="ios"      width="57" height="57" />
+  <icon src="App_Resources/iOS/icon-72.png"                         gap:platform="ios"      width="72" height="72" />
+  <icon src="App_Resources/iOS/icon-76.png"                         gap:platform="ios"      width="76" height="76" />
+  <icon src="App_Resources/iOS/icon-Small-50@2x.png"                gap:platform="ios"      width="110" height="110" />
+  <icon src="App_Resources/iOS/icon-Small-60@2x.png"                gap:platform="ios"      width="120" height="120" />
+  <icon src="App_Resources/iOS/icon-72@2x.png"                      gap:platform="ios"      width="144" height="144" />
+  <icon src="App_Resources/iOS/icon-152.png"                        gap:platform="ios"      width="152" height="152" />
+  <icon src="App_Resources/winphone/icon.png"                       gap:platform="winphone" />
+  <icon src="App_Resources/winphone/tileicon.png"                   gap:platform="winphone" gap:role="background" />
+  
+  <gap:splash src="App_Resources/Android/drawable-ldpi/splash.png"  gap:platform="android"  gap:density="ldpi" />
+  <gap:splash src="App_Resources/Android/drawable-mdpi/splash.png"  gap:platform="android"  gap:density="mdpi" />
+  <gap:splash src="App_Resources/Android/drawable-hdpi/splash.png"  gap:platform="android"  gap:density="hdpi" />
+  <gap:splash src="App_Resources/Android/drawable-xhdpi/splash.png" gap:platform="android"  gap:density="xhdpi" />
+  <gap:splash src="App_Resources/iOS/Default.png"                   gap:platform="ios"      width="320" height="480" />
+  <gap:splash src="App_Resources/iOS/Default@2x.png"                gap:platform="ios"      width="640" height="960" />
+  <gap:splash src="App_Resources/iOS/Default-Portrait.png"          gap:platform="ios"      width="768" height="1024" />
+  <gap:splash src="App_Resources/iOS/Default-Landscape.png"         gap:platform="ios"      width="1024" height="768" />
+  <gap:splash src="App_Resources/iOS/Default-Landscape@2x.png"      gap:platform="ios"      width="2048" height="1496" />
+  <gap:splash src="App_Resources/iOS/Default-Portrait@2x.png"       gap:platform="ios"      width="1536" height="2008" />
+  <gap:splash src="App_Resources/winphone/splash.png"               gap:platform="winphone" />
+
+  <access origin="*" />
+  <access origin="*.pushwoosh.com" />
+  <access origin="https://cp.pushwoosh.com" subdomains="true" />
+  <access origin="http://127.0.0.1*"/>
+</widget>

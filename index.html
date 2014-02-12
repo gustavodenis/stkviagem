@@ -1,0 +1,447 @@
+﻿S<!DOCTYPE html>
+<html>
+<head>
+    <title>Softtek Viagens</title>
+    <meta charset="utf-8" />
+    <script src="jquery-mobile/jquery-1.9.1.min.js" type="text/javascript"></script>
+    <script src="jquery-mobile/jquery.mobile-1.4.0.min.js" type="text/javascript"></script>
+    <!--<script src="cordova.js" type="text/javascript"></script>
+    <script src="barcodescanner.js" type="text/javascript"></script>
+    <script src="childbrowser.js" type="text/javascript"></script>
+    <script src="PushNotification.js" type="text/javascript"></script>-->
+    <script src="scripts/main.js" type="text/javascript"></script>
+    <!-- Default Stylesheet -->
+    <link rel="stylesheet" href="jquery-mobile/jquery.mobile-1.4.0.min.css" type="text/css" />
+    <!-- Phone 320x480 High DPI (aka Retina) -->
+    <link rel="stylesheet" href="styles/main.css" type="text/css" />
+    <!-- Phone 480x800 Medium DPI (aka Samsung Galaxy S II Skyrocket) -->
+    <link rel="stylesheet" media="only screen and (min-device-width: 320px) and (max-device-width: 508px) and (-webkit-device-pixel-ratio:1.5)" href="styles/phone-800.css" type="text/css" />
+    <!-- Tablet 768x1024 Low DPI (aka iPad 1 & 2") -->
+    <link rel="stylesheet" media="only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (-webkit-device-pixel-ratio:1)" href="styles/tablet-1024-ldpi.css" type="text/css" />
+    <!-- Phone 720x1280 High DPI (aka Google Nexus) -->
+    <link rel="stylesheet" media="only screen and (min-device-width: 720px) and (max-device-width: 1280px) and (-webkit-device-pixel-ratio:2)" href="styles/phone-1280.css" type="text/css" />
+</head>
+<body>
+    <!--onload="initNotification();"-->
+    <!-- home page -->
+    <div id="home" data-role="page" data-mini="true">
+        <div data-role="header" data-theme="a" data-position="fixed" data-tap-toggle="false">
+            <div class="header-text">
+                <img class="logo" alt="img" src="images/logo.png" width="240">
+            </div>
+        </div>
+        <div data-role="content" class="navigation-icons">
+            <div class="heading">
+                <div class="heading-left">
+                    <h3>Sistema de Despesas</h3>
+                </div>
+            </div>
+            <div class="decoration"></div>
+            <div class="container no-bottom">
+                <h4>Bem Vindo!</h4>
+                <p>
+                    Este é o novo sistema de viagens e despesas da Softtek, facilitando a vida dos seus colaboradores;
+                </p>
+            </div>
+            <div class="decoration"></div>
+            <div class="container no-bottom">
+                <h4>Facilidade</h4>
+                <p>
+                    Este sistema possibilita a entrada de despesas através do seu próprio celular;
+                </p>
+            </div>
+        </div>
+        <div data-role="footer" style="overflow:hidden;">
+            <div data-role="navbar" data-iconpos="bottom">
+                <ul>
+                    <li><a href="#listTravelPage" data-icon="grid">Despesas</a></li>
+                    <li><a href="#addTravelPage" data-icon="action">Nova Despesa</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- logon page -->
+    <div id="logon" data-role="page" data-mini="true">
+        <div data-role="header" data-theme="a" data-position="fixed" data-tap-toggle="false">
+            <div class="header-text">
+                <img class="logo" alt="img" src="images/logo.png" width="240">
+            </div>
+        </div>
+        <div data-role="content">
+            <form id="login">
+                Usuário:
+                <input type="text" id="usr" value="GUDE" />
+                Senha:
+                <input type="text" id="pwd" value="" />
+                <input type="submit" class="loginBtn" value="Login" data-icon="lock" data-theme="a" />
+            </form>
+        </div>
+    </div>
+
+    <!-- addTravel Page -->
+    <div id="addTravelPage" data-role="page" data-mini="true">
+        <div data-role="header" data-theme="a" data-position="fixed" data-tap-toggle="false">
+            <div class="header-text">
+                <img class="logo" alt="img" src="images/logo.png" width="240">
+            </div>
+            <a href="#home" data-rel="back" style="margin-left: 10px; margin-top: 15px; margin-bottom: 15px; float: left;" class="ui-btn-left ui-btn ui-icon-home ui-btn-icon-notext ui-shadow ui-corner-all" data-role="button" role="button">Home</a>
+        </div>
+        <div data-role="content">
+            <div class="heading">
+                <div class="heading-left">
+                    <h3>+ Despesas</h3>
+                </div>
+            </div>
+            <div class="decoration"></div>
+            <div id="fulldataForm">
+                Data Inicio:
+                <input type="text" id="dtIni" value="" />
+                Data Final:
+                <input type="text" id="dtFim" value="" />
+                Hora Inicio:
+                <input type="text" id="hrIni" value="" />
+                Hora Final:
+                <input type="text" id="hrFim" value="" />
+                Local:
+                <input type="text" id="txtLocal" value="" />
+                Motivo:
+                <input type="text" id="txtMotivo" value="" />
+                Tipo:
+                <select id="tpViagem">
+                    <option value="0" selected="selected">Selecione...</option>
+                    <option value="PR">Viagem pro Projetos</option>
+                </select>
+                Estado:
+                <select id="state">
+                    <option value="0" selected="selected">Selecione...</option>
+                    <option value="AC">Acre</option>
+                    <option value="AL">Alagoas</option>
+                    <option value="AM">Amazonas</option>
+                    <option value="AP">Amapá</option>
+                    <option value="BA">Bahia</option>
+                    <option value="CE">Ceará</option>
+                    <option value="DF">Distrito Federal</option>
+                    <option value="ES">Espirito Santo</option>
+                    <option value="GO">Goiás</option>
+                    <option value="MA">Maranhão</option>
+                    <option value="MG">Minas Gerais</option>
+                    <option value="MS">Mato Grosso do Sul</option>
+                    <option value="MT">Mato Grosso</option>
+                    <option value="PA">Pará</option>
+                    <option value="PB">Paraíba</option>
+                    <option value="PE">Pernambuco</option>
+                    <option value="PI">Piauí</option>
+                    <option value="PR">Paraná</option>
+                    <option value="RJ">Rio de Janeiro</option>
+                    <option value="RN">Rio Grande do Norte</option>
+                    <option value="RO">Rondônia</option>
+                    <option value="RR">Roraima</option>
+                    <option value="RS">Rio Grande do Sul</option>
+                    <option value="SC">Santa Catarina</option>
+                    <option value="SE">Sergipe</option>
+                    <option value="SP">São Paulo</option>
+                    <option value="TO">Tocantins</option>
+                </select>
+                Status:
+                <input type="text" id="txtStatus" value="" />
+                Solicitante:
+                <input type="text" id="txtSolicitante" value="GUDE-Gustavo Denis" />
+                <div class="decoration"></div>
+                <div data-role="tabs" id="tabs">
+                    <div data-role="navbar">
+                        <ul>
+                            <li><a href="#one" class="ui-btn-active" data-ajax="false">Atribuição</a></li>
+                            <li><a href="#two" data-ajax="false">Adiantamentos</a></li>
+                            <li><a href="#three" data-ajax="false">Prestação</a></li>
+                        </ul>
+                    </div>
+                    <div id="one" class="tab-content">
+                        <h3 style="text-align:center;">Atribuição de Contas</h3>
+                        <div class="ui-grid-c">
+                            <div class="ui-block-a"><div class="ui-bar ui-bar-a">Nº</div></div>
+                            <div class="ui-block-b"><div class="ui-bar ui-bar-a">%</div></div>
+                            <div class="ui-block-c"><div class="ui-bar ui-bar-a">C/Custo</div></div>
+                            <div class="ui-block-d"><div class="ui-bar ui-bar-a">Ordem/Projeto</div></div>
+                        </div>
+                        <div class="ui-grid-c">
+                            <div class="ui-block-a">123</div>
+                            <div class="ui-block-b">100</div>
+                            <div class="ui-block-c">201322</div>
+                            <div class="ui-block-d">PGAFI05</div>
+                        </div>
+                    </div>
+                    <div id="two" class="tab-content">
+                        <h3 style="text-align:center;">Adiantamentos</h3>
+                        <div class="ui-grid-b">
+                            <div class="ui-block-a"><div class="ui-bar ui-bar-a">Nº</div></div>
+                            <div class="ui-block-b"><div class="ui-bar ui-bar-a">Valor</div></div>
+                            <div class="ui-block-c"><div class="ui-bar ui-bar-a">Data</div></div>
+                        </div>
+                        <div class="ui-grid-b">
+                            <div class="ui-block-a"><a href="#" class="ui-btn ui-icon-delete ui-btn-icon-left">123</a></div>
+                            <div class="ui-block-b">R$10,00</div>
+                            <div class="ui-block-c">05/01/14</div>
+                        </div>
+                        <p>
+                            <a href="#popupAdiantamento" data-rel="popup" data-position-to="window" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-icon-notext ui-btn-a" data-transition="pop"></a>
+                        </p>
+                    </div>
+                    <div id="three" class="tab-content">
+                        <h3 style="text-align:center;">Prestação de Contas</h3>
+                        <div class="ui-grid-d">
+                            <div class="ui-block-a"><div class="ui-bar ui-bar-a">Nº</div></div>
+                            <div class="ui-block-b"><div class="ui-bar ui-bar-a">Tipo</div></div>
+                            <div class="ui-block-c"><div class="ui-bar ui-bar-a">Valor</div></div>
+                            <div class="ui-block-d"><div class="ui-bar ui-bar-a">Data</div></div>
+                            <div class="ui-block-e"><div class="ui-bar ui-bar-a">Obs</div></div>
+                        </div>
+                        <div class="ui-grid-d">
+                            <div class="ui-block-a"><a href="#" class="ui-btn ui-icon-delete ui-btn-icon-left">123</a></div>
+                            <div class="ui-block-b">Projeto</div>
+                            <div class="ui-block-c">R$20,00</div>
+                            <div class="ui-block-d">05/01/14</div>
+                            <div class="ui-block-e">loren ipsun</div>
+                        </div>
+                        <p>
+                            <a href="#popupPrestacao" data-rel="popup" data-position-to="window" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-icon-notext ui-btn-a" data-transition="pop"></a>
+                        </p>
+                    </div>
+                </div>
+                <p><a id="btnSaveContext" data-role="button" href="#" data-icon="star" data-transition="slide" data-theme="a">Salvar</a></p>
+                <p><a id="btnSendEmail" data-role="button" href="#" data-icon="star" data-transition="slide" data-theme="a">Enviar Email</a></p>
+                <p><a id="btnFinish" data-role="button" href="#" data-icon="star" data-transition="slide" data-theme="a">Finalizar</a></p>
+            </div>
+
+            <div data-role="popup" id="popupAdiantamento" data-theme="a" class="ui-corner-all">
+                <form>
+                    <div style="padding:10px 20px;">
+                        <h3>+ Adiantamento</h3>
+                        <label for="un">Valor:</label>
+                        <input type="text" name="valor" id="un" value="" data-theme="a">
+                        <label for="pw">Data:</label>
+                        <input type="text" name="data" id="pw" value="" data-theme="a">
+                        <button type="submit" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check">Gravar</button>
+                    </div>
+                </form>
+            </div>
+            <div data-role="popup" id="popupPrestacao" data-theme="a" class="ui-corner-all">
+                <form>
+                    <div style="padding:10px 20px;">
+                        <h3>+ Prestação de Contas</h3>
+                        <label for="tp">Tipo:</label>
+                        <select id="poptpDespesa" data-theme="a">
+                            <option value="0" selected="selected">Selecione...</option>
+                            <option value="PR">Alimentação</option>
+                            <option value="TX">Taxi</option>
+                        </select>
+                        <label for="un">Valor:</label>
+                        <input type="text" name="valor" id="valor" value="" data-theme="a">
+                        <label for="dt">Data:</label>
+                        <input type="text" name="data" id="data" value="" data-theme="a">
+                        <label for="obs">Obs:</label>
+                        <input type="text" name="obs" id="obs" value="" data-theme="a">
+                        <label for="obs">Comprovante:</label>
+                        <a href="#" class="ui-btn ui-shadow ui-corner-all ui-icon-camera ui-btn-icon-notext"></a>
+                        <button type="submit" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check">Gravar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- infoResume Page -->
+    <div id="infoResumePage" data-role="page" data-add-back-btn="true">
+        <div data-role="header" data-position="fixed" data-theme="a" data-tap-toggle="false">
+            <div class="header-text">
+                <img class="logo" alt="img" src="images/logo.png" width="240">
+            </div>
+            <a href="#home" data-rel="back" style="margin-left: 10px; margin-top: 15px; margin-bottom: 15px; float: left;" class="ui-btn-left ui-btn ui-icon-home ui-btn-icon-notext ui-shadow ui-corner-all" data-role="button" role="button">Home</a>
+        </div>
+        <div data-role="content">
+            <div class="heading">
+                <div class="heading-left">
+                    <h3>Resumo</h3>
+                </div>
+            </div>
+            <div class="decoration"></div>
+            <div class="ui-grid-b">
+                <div class="ui-block-a"><div class="ui-bar ui-bar-a">Data</div></div>
+                <div class="ui-block-b"><div class="ui-bar ui-bar-a">Tipo</div></div>
+                <div class="ui-block-c"><div class="ui-bar ui-bar-a">Total</div></div>
+            </div>
+            <div class="ui-grid-b">
+                <div class="ui-block-a">05/01/14</div>
+                <div class="ui-block-b">Projeto</div>
+                <div class="ui-block-c">R$10,00</div>
+            </div>
+            <div>
+                <p>Subtotal: 00,00</p>
+                <p>Adiantamentos: 00,00</p>
+                <p>Total: R$00,00</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- infoTravel Page -->
+    <div id="infoTravelPage" data-role="page" data-add-back-btn="true">
+        <div data-role="header" data-position="fixed" data-theme="a" data-tap-toggle="false">
+            <div class="header-text">
+                <img class="logo" alt="img" src="images/logo.png" width="240">
+            </div>
+            <a href="#home" data-rel="back" style="margin-left: 10px; margin-top: 15px; margin-bottom: 15px; float: left;" class="ui-btn-left ui-btn ui-icon-home ui-btn-icon-notext ui-shadow ui-corner-all" data-role="button" role="button">Home</a>
+        </div>
+        <div data-role="content">
+            <div class="heading">
+                <div class="heading-left">
+                    <h3>! Despesas</h3>
+                </div>
+            </div>
+            <div class="decoration"></div>
+            <div id="fulldataForm">
+                <p>
+                    Data:
+                    <span id="vdata">05/01/14 - 07/01/14</span>
+                </p>
+                <p>
+                    Hora:
+                    <span id="vhora">08:00-18:00</span>
+                </p>
+                <p>
+                    Local:
+                    <span id="vtxtLocal">Gafisa</span>
+                </p>
+                <p>
+                    Motivo:
+                    <span id="vtxtMotivo">loren ipsun</span>
+                </p>
+                <p>
+                    Estado:
+                    <span id="vtxtEstado">São Paulo</span>
+                </p>
+                <p>
+                    Status:
+                    <span id="vtxtStatus">Aguardando Aprovação</span>
+                </p>
+                <p>
+                    Tipo:
+                    <span id="vtxtTipo">Viagem por Projetos</span>
+                </p>
+                <p>
+                    Solicitante:
+                    <span id="vtxtSolicitante">GUDE-Gustavo Denis</span>
+                </p>
+                <div class="decoration"></div>
+                <div data-role="tabs" id="tabs">
+                    <div data-role="navbar">
+                        <ul>
+                            <li><a href="#one" class="ui-btn-active" data-ajax="false">Atribuição</a></li>
+                            <li><a href="#two" data-ajax="false">Adiantamentos</a></li>
+                            <li><a href="#three" data-ajax="false">Prestação</a></li>
+                        </ul>
+                    </div>
+                    <div id="one" class="tab-content">
+                        <h3 style="text-align:center;">Atribuição de Contas</h3>
+                        <div class="ui-grid-c">
+                            <div class="ui-block-a"><div class="ui-bar ui-bar-a">Nº</div></div>
+                            <div class="ui-block-b"><div class="ui-bar ui-bar-a">%</div></div>
+                            <div class="ui-block-c"><div class="ui-bar ui-bar-a">C/Custo</div></div>
+                            <div class="ui-block-d"><div class="ui-bar ui-bar-a">Ordem/Projeto</div></div>
+                        </div>
+                        <div class="ui-grid-c">
+                            <div class="ui-block-a">123</div>
+                            <div class="ui-block-b">100</div>
+                            <div class="ui-block-c">201322</div>
+                            <div class="ui-block-d">PGAFI05</div>
+                        </div>
+                    </div>
+                    <div id="two" class="tab-content">
+                        <h3 style="text-align:center;">Adiantamentos</h3>
+                        <div class="ui-grid-b">
+                            <div class="ui-block-a"><div class="ui-bar ui-bar-a">Nº</div></div>
+                            <div class="ui-block-b"><div class="ui-bar ui-bar-a">Valor</div></div>
+                            <div class="ui-block-c"><div class="ui-bar ui-bar-a">Data</div></div>
+                        </div>
+                        <div class="ui-grid-b">
+                            <div class="ui-block-a">123</div>
+                            <div class="ui-block-b">R$10,00</div>
+                            <div class="ui-block-c">05/01/14</div>
+                        </div>
+                    </div>
+                    <div id="three" class="tab-content">
+                        <h3 style="text-align:center;">Prestação de Contas</h3>
+                        <div class="ui-grid-d">
+                            <div class="ui-block-a"><div class="ui-bar ui-bar-a">Nº</div></div>
+                            <div class="ui-block-b"><div class="ui-bar ui-bar-a">Tipo</div></div>
+                            <div class="ui-block-c"><div class="ui-bar ui-bar-a">Valor</div></div>
+                            <div class="ui-block-d"><div class="ui-bar ui-bar-a">Data</div></div>
+                            <div class="ui-block-e"><div class="ui-bar ui-bar-a">Obs</div></div>
+                        </div>
+                        <div class="ui-grid-d">
+                            <div class="ui-block-a">123</div>
+                            <div class="ui-block-b">Projeto</div>
+                            <div class="ui-block-c">R$20,00</div>
+                            <div class="ui-block-d">05/01/14</div>
+                            <div class="ui-block-e">loren ipsun</div>
+                        </div>
+                    </div>
+                </div>
+                <p><a id="btnAprove" data-role="button" href="#" data-icon="star" data-transition="slide" data-theme="a">Aprovar</a></p>
+                <p><a id="btnReject" data-role="button" href="#" data-icon="star" data-transition="slide" data-theme="a">Rejeitar</a></p>
+            </div>
+        </div>
+    </div>
+    <!-- listTravel page -->
+    <div id="listTravelPage" data-role="page" data-add-back-btn="true">
+        <div data-role="header" data-position="fixed" data-theme="a" data-tap-toggle="false">
+            <div class="header-text">
+                <img class="logo" alt="img" src="images/logo.png" width="240">
+            </div>
+            <a href="#home" data-rel="back" style="margin-left: 10px; margin-top: 15px; margin-bottom: 15px; float: left;" class="ui-btn-left ui-btn ui-icon-home ui-btn-icon-notext ui-shadow ui-corner-all" data-role="button" role="button">Home</a>
+        </div>
+        <div data-role="content">
+            <div class="heading">
+                <div class="heading-left">
+                    <h3>Minhas Viagens</h3>
+                </div>
+            </div>
+            <div class="decoration"></div>
+            <div class="ui-grid-d">
+                <div class="ui-block-a"><div class="ui-bar ui-bar-a">Nº</div></div>
+                <div class="ui-block-b"><div class="ui-bar ui-bar-a">Tipo</div></div>
+                <div class="ui-block-c"><div class="ui-bar ui-bar-a">Data</div></div>
+                <div class="ui-block-d"><div class="ui-bar ui-bar-a">Status</div></div>
+                <div class="ui-block-e"><div class="ui-bar ui-bar-a">Total</div></div>
+            </div>
+            <div class="ui-grid-d">
+                <div class="ui-block-a"><a href="#infoTravelPage">123</a></div>
+                <div class="ui-block-b">Projetos</div>
+                <div class="ui-block-c">05/01/14-06/01/14</div>
+                <div class="ui-block-d">Aguardando Aprovação</div>
+                <div class="ui-block-e">R$10,00</div>
+                <div class="ui-block-a"><a href="#infoTravelPage">423</a></div>
+                <div class="ui-block-b">Projetos</div>
+                <div class="ui-block-c">06/01/14-07/01/14</div>
+                <div class="ui-block-d">Aguardando Aprovação</div>
+                <div class="ui-block-e">R$50,00</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+<script>
+
+    jQuery.support.cors = true;
+    $.ajaxSetup({
+        cache: false
+    });
+
+    $(function () {
+        $.mobile.defaultHomeScroll = 0;
+    });
+
+    var stkViagem = new stkViagemApp();
+    stkViagem.run();
+</script>
+
