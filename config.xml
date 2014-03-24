@@ -1,16 +1,16 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+﻿<?xml version="1.0" encoding="UTF-8" ?>
 <widget xmlns   = "http://www.w3.org/ns/widgets"
     xmlns:gap   = "http://phonegap.com/ns/1.0"
-    id          = "com.softtek.viagem"
+    id          = "com.buonaacqua.pedido"
     version     = "1.0.0" >
 
-  <name>Softtek Viagens</name>
+  <name>Buona Acqua - Santo André</name>
 
   <description>
-    Aplicação Mobile da Softtek para as Despesas dos colaboradores
+    Aplicação Mobile da Buona Acqua para que nossos clientes tenham a comodidade de solicitar nossos produtos pelo seu celular;
   </description>
 
-  <author href="http://www.softtek.com" email="gustavo.denis@softtek.com">
+  <author href="http://www.gdtek.net" email="gustavo@gdtek.net">
     Gustavo Denis
   </author>
 
