@@ -3,112 +3,87 @@ document.addEventListener("deviceready", onDeviceReady, false);
 
 // PhoneGap is ready
 function onDeviceReady() { }
+var buonaAcquaApp = function () { }
 
-function strpad00(s) {
-    s = s + '';
-    if (s.length === 1) s = '0' + s;
-    return s;
-}
+buonaAcquaApp.prototype = function () {
 
-function GetTodayDate() {
-    var tdate = new Date();
-    var dd = tdate.getDate(); //yields day
-    var MM = tdate.getMonth(); //yields month
-    var yyyy = tdate.getFullYear(); //yields year
-    var xxx = dd + "/" + strpad00((MM + 1)) + "/" + yyyy;
-
-    return xxx;
-}
-
-var stkViagemApp = function () { }
-
-stkViagemApp.prototype = function () {
-
-    var erro = '';
-    var _login = false,
-
+    var erro = '',
     run = function () {
 
         var that = this;
         $('#home').on('pagebeforecreate', $.proxy(_initHome, that));
-        $('#addTravelPage').on('pageshow', $.proxy(_initaddTravelPage, that));
-        $('#infoTravelPage').on('pageshow', $.proxy(_initinfoTravelPage, that));
-        $('#listTravelPage').on('pageshow', $.proxy(_initlistTravelPage, that));
+        $('#addressPage').on('pageshow', $.proxy(_initaddressPage, that));
+        $('#cartPage').on('pageshow', $.proxy(_initcartPage, that));
 
-        if (window.localStorage.getItem("userInfo") != null) {
-            _login = true;
-            $.mobile.changePage('#home', { transition: 'flip' });
-        }
-
-        $('#btnFinish').click(function () {
-            alert('Despesa Finalizada com sucesso!');
-            $.mobile.changePage('#infoResumePage', { transition: 'flip' });
+        $("#myProducts .btnCompra").on("click", function () {
+            var cart = "";
+            if (window.localStorage.getItem("cartUser") === null) {
+                cart = $(this).attr("idProduct");
+                window.localStorage.setItem("cartUser", cart);
+            }
+            else {
+                cart = window.localStorage.getItem("cartUser");
+                cart += ";" + $(this).attr("idProduct");
+                window.localStorage.setItem("cartUser", cart);
+            }
+            $('#btnViewCart').html('Carrinho de Compras (' + cart.split(";").length + ' itens!)')
         });
 
-        $('#btnAprove').click(function () {
-            alert('Despesa Aprovada com sucesso!');
-            $.mobile.changePage('#home', { transition: 'flip' });
-        });
+        $('#btnSaveContext').on("click", function () {
+            erro = '';
+            if ($('#firstname').val() == '')
+                erro += '- Primeiro Nome\n';
+            if ($('#lastname').val() == '')
+                erro += '- Último Nome\n';
+            if ($('#employer').val() == '')
+                erro += '- Empresa\n';
+            if ($('#email').val() == '')
+                erro += '- Email';
 
-        $('#btnReject').click(function () {
-            alert('Despesa Reprovada com sucesso!');
-            $.mobile.changePage('#home', { transition: 'flip' });
-        });
+            if (erro.length > 0) {
+                alert('Erros encontrados: ' + erro);
+            }
+            else {
 
-        $("#listDespesas li").on("swipeleft swiperight", function (event) {
-            var listitem = $(this),
-                dir = event.type === "swipeleft" ? "left" : "right",
-                transition = $.support.cssTransform3d ? dir : false;
-            $("#menuPopup").popup("open");
-        });
+                fauxAjax(function () {
+                    $.post("http://ec2-54-200-107-211.us-west-2.compute.amazonaws.com/odata/User",
+                        { firstname: $('#firstname').val(), lastname: $('#lastname').val(), employer: $('#employer').val(), email: $('#email').val() })
+                    .done(function (data) {
+                        var usrdata = { idUser: data.idUser, firstname: data.firstname, lastname: data.lastname, email: data.email, employer: data.employer };
+                        window.localStorage.setItem("userInfo", JSON.stringify(usrdata));
+                        _loadHome(data);
 
-        $(".btnmenu").on("click", function () {
-            var listitem = $(this).parent("li");
-            $("#menuPopup").popup("open");
-        });
+                        $(this).hide();
+                        _login = true;
 
-        if (!$.mobile.support.touch) {
-            $("#listDespesas").removeClass("touch");
-        }
-
-        var quemfechou = '';
-        $('#menuPopup').on({
-            popupafterclose: function () {
-                setTimeout(function () { (quemfechou == 'A' ? $('#popupAdiantamentoHome').popup('open') : $('#popupPrestacaoHome').popup('open')) }, 100);
+                        $.mobile.changePage('#home', { transition: 'flip' });
+                    })
+                    .fail(function (jqXHR, textStatus, errorThrown) {
+                        alert("Request failed: " + textStatus + "," + errorThrown);
+                    });
+                }, 'autenticando...', this);
             }
         });
 
-        $("#menuPopup #btnAdiantamento").on("click", function () {
-            quemfechou = 'A';
-            $('#menuPopup').popup('close');
-            $("#listDespesas").listview("refresh");
-        });
-        // Remove active state and unbind when the cancel button is clicked
-        $("#menuPopup #btnReembolso").on("click", function () {
-            quemfechou = 'R';
-            $('#menuPopup').popup('close');
-            $("#menuPopup #btnAdiantamento").off();
+        $('#btnClean').on("click", function () {
+            window.localStorage.clear();
+            alert("Itens excluídos com sucesso!");
         });
     },
 
      _initHome = function () {
-         if (!_login) {
-             $.mobile.changePage("#logon", { transition: "flip" });
+         if (window.localStorage.getItem("cartUser") === null) {
+             $('#btnViewCart').html('Carrinho de Compras');
+         }
+         else {
+             $('#btnViewCart').html('Carrinho de Compras (' + window.localStorage.getItem("cartUser").split(";").length + ' itens!)')
          }
      },
 
-     _initaddTravelPage = function () {
-         $('#dtIni').val(GetTodayDate());
-         $('#dtFim').val(GetTodayDate());
-         $('#hrIni').val('08:00');
-         $('#hrFim').val('18:00');
+     _initaddressPage = function () {
      },
 
-    _initinfoTravelPage = function () {
-
-    },
-
-    _initlistTravelPage = function () {
+    _initcartPage = function () {
 
     },
 
