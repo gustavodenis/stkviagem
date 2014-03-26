@@ -3,6 +3,35 @@ document.addEventListener("deviceready", onDeviceReady, false);
 
 // PhoneGap is ready
 function onDeviceReady() { }
+
+function GetName(prod)
+{
+    switch (prod) {
+        case "1":
+            return "Bonafont 20 Litros";
+        case "2":
+            return "Bonafont 10 Litros";
+        case "3":
+            return "Pilar 20 Litros";
+        case "4":
+            return "Pilar 10 Litros";
+    }
+}
+
+function GetPrice(prod)
+{
+    switch (prod) {
+        case "1":
+            return 10;
+        case "2":
+            return 8;
+        case "3":
+            return 7;
+        case "4":
+            return 5;
+    }
+}
+
 var buonaAcquaApp = function () { }
 
 buonaAcquaApp.prototype = function () {
@@ -31,14 +60,20 @@ buonaAcquaApp.prototype = function () {
 
         $('#btnSaveContext').on("click", function () {
             erro = '';
-            if ($('#firstname').val() == '')
-                erro += '- Primeiro Nome\n';
-            if ($('#lastname').val() == '')
-                erro += '- Último Nome\n';
-            if ($('#employer').val() == '')
-                erro += '- Empresa\n';
-            if ($('#email').val() == '')
-                erro += '- Email';
+            if ($('#txtCEP').val() == '')
+                erro += '- CEP\n';
+            if ($('#txtStreet').val() == '')
+                erro += '- Rua\n';
+            if ($('#txtNumber').val() == '')
+                erro += '- Número\n';
+            if ($('#txtNeighboor').val() == '')
+                erro += '- Bairro';
+            if ($('#txtCity').val() == '')
+                erro += '- Cidade';
+            if ($('#state').val() == '')
+                erro += '- Estado';
+            if ($('#txtContact').val() == '')
+                erro += '- Contato';
 
             if (erro.length > 0) {
                 alert('Erros encontrados: ' + erro);
@@ -46,22 +81,19 @@ buonaAcquaApp.prototype = function () {
             else {
 
                 fauxAjax(function () {
-                    $.post("http://ec2-54-200-107-211.us-west-2.compute.amazonaws.com/odata/User",
-                        { firstname: $('#firstname').val(), lastname: $('#lastname').val(), employer: $('#employer').val(), email: $('#email').val() })
+                    $.post("http://www.gdtek.net/buonaAcqua/Purchase",
+                        { cep: $('#txtCEP').val(), street: $('#txtStreet').val(), number: $('#txtNumber').val(), complement: $('#txtComplement').val(), neigh: $('#txtNeighboor').val(), city: $('#txtCity').val(), state: $('#state').val(), contact: $('#txtContact').val() })
                     .done(function (data) {
-                        var usrdata = { idUser: data.idUser, firstname: data.firstname, lastname: data.lastname, email: data.email, employer: data.employer };
-                        window.localStorage.setItem("userInfo", JSON.stringify(usrdata));
-                        _loadHome(data);
+                        var userdatatemp = { cep: $('#txtCEP').val(), street: $('#txtStreet').val(), number: $('#txtNumber').val(), complement: $('#txtComplement').val(), neigh: $('#txtNeighboor').val(), city: $('#txtCity').val(), state: $('#state').val(), contact: $('#txtContact').val() };
+                        window.localStorage.setItem("dataUser", JSON.stringify(userdatatemp));
 
-                        $(this).hide();
-                        _login = true;
-
+                        alert('Compra efetuada com sucesso!')
                         $.mobile.changePage('#home', { transition: 'flip' });
                     })
                     .fail(function (jqXHR, textStatus, errorThrown) {
                         alert("Request failed: " + textStatus + "," + errorThrown);
                     });
-                }, 'autenticando...', this);
+                }, 'finalizando compra...', this);
             }
         });
 
@@ -81,10 +113,39 @@ buonaAcquaApp.prototype = function () {
      },
 
      _initaddressPage = function () {
+         var tempdata = window.localStorage.getItem("dataUser");
+         var dataJson = JSON.parse(window.localStorage.getItem("dataUser"));
+         if (tempdata != null) {
+             $('#txtCEP').val(dataJson.cep);
+             $('#txtStreet').val(dataJson.street);
+             $('#txtNumber').val(dataJson.number);
+             $('#txtComplement').val(dataJson.complement);
+             $('#txtNeighboor').val(dataJson.neigh);
+             $('#txtCity').val(dataJson.city);
+             $('#state').val(dataJson.state);
+             $('#txtContact').val(dataJson.contact);
+         }
      },
 
     _initcartPage = function () {
+        var cart = window.localStorage.getItem("cartUser");
+        if (cart != null) {
+            var lista = ""
+            var total = 0;
+            for (prod in cart.split(";")) {
+                lista += '<div class="ui-block-a">' + GetName(cart.split(";")[prod]) + '</div>';
+                lista += '<div class="ui-block-b">R$' + GetPrice(cart.split(";")[prod]).toFixed(2) + '</div>';
 
+                total += GetPrice(cart.split(";")[prod]);
+            }
+            $('#cartPage #listCartUser').empty();
+            $('#cartPage #listCartUser').html(lista);
+            $('#cartPage #totalPrice').html("R$" + total.toFixed(2));
+        }
+        else {
+            $('#cartPage #listCartUser').empty();
+            $('#cartPage #listCartUser').append("Nenhum registro encontrado!");
+        }
     },
 
     fauxAjax = function fauxAjax(func, text, thisObj) {

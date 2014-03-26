@@ -81,13 +81,17 @@
             <a href="#home" data-rel="back" style="margin-left: 10px; margin-top: 15px; margin-bottom: 15px; float: left;" class="ui-btn-left ui-btn ui-icon-home ui-btn-icon-notext ui-shadow ui-corner-all" data-role="button" role="button">Home</a>
         </div>
         <div data-role="content">
-            <h4>Endereço</h4>
+            <h4>Endereço p/ entrega</h4>
             CEP:
             <input type="text" id="txtCEP" value="" />
             Rua:
             <input type="text" id="txtStreet" value="" />
             Número:
             <input type="text" id="txtNumber" value="" />
+            Complemento:
+            <input type="text" id="txtComplement" value="" />
+            Bairro:
+            <input type="text" id="txtNeighboor" value="" />
             Cidade:
             <input type="text" id="txtCity" value="" />
             Estado:
@@ -121,6 +125,8 @@
                 <option value="SP">São Paulo</option>
                 <option value="TO">Tocantins</option>
             </select>
+            Contato:
+            <input type="text" id="txtContact" placeholder="telefone + nome" value="" />
             <p><a id="btnSaveContext" data-role="button" href="#" data-icon="star" data-transition="slide" data-theme="a">Salvar</a></p>
         </div>
     </div>
@@ -136,24 +142,18 @@
         <div data-role="content">
             <div class="heading">
                 <div class="heading-left">
-                    <h3>Carrinho</h3>
+                    <h3>Carrinho de Compras</h3>
                 </div>
             </div>
             <div class="decoration"></div>
-            <div class="ui-grid-b">
+            <div class="ui-grid-a">
                 <div class="ui-block-a"><div class="ui-bar ui-bar-a">Produto</div></div>
-                <div class="ui-block-b"><div class="ui-bar ui-bar-a">Quantidade</div></div>
-                <div class="ui-block-c"><div class="ui-bar ui-bar-a">Total</div></div>
+                <div class="ui-block-b"><div class="ui-bar ui-bar-a">Valor</div></div>
             </div>
-            <div class="ui-grid-b">
-                <div class="ui-block-a">Buona Fonte 20lts</div>
-                <div class="ui-block-b">1</div>
-                <div class="ui-block-c">R$10,00</div>
+            <div id="listCartUser" class="ui-grid-a">
             </div>
             <div>
-                <p>Subtotal: 00,00</p>
-                <p>Adiantamentos: 00,00</p>
-                <p>Total: R$00,00</p>
+                <p>Total: <span id="totalPrice"></span></p>
             </div>
             <p><a id="btnClean" data-role="button" href="#" data-icon="star" data-transition="slide" data-theme="a">Excluir Itens!</a></p>
             <p><a id="btnFinish" data-role="button" href="#addressPage" data-icon="star" data-transition="slide" data-theme="a">Fechar Compra!</a></p>
